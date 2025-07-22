@@ -1,4 +1,4 @@
-# Miniscript
+# Mini script
 
 Meus projetos simples e basico de exploiter
 
