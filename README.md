@@ -1,5 +1,5 @@
 # mini-script
 ## Execute o script
 ```lua
-https://github.com/Laelmano24/mini-script/blob/main/init.luau
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Laelmano24/mini-script/refs/heads/main/init.luau"))()
 ```
