@@ -1,2 +1,5 @@
 # mini-script
-Sla, cara. Praticar e postar
+## Execute o script
+```lua
+https://github.com/Laelmano24/mini-script/blob/main/init.luau
+```
