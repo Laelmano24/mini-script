@@ -28,6 +28,9 @@ local HumanoidRootPart: BasePart = Character:WaitForChild("HumanoidRootPart")
 local vehicles: Folder = workspace:WaitForChild("Vehicles")
 local remoteAvatar: RemoteFunction = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Wear")
 local changeCharacterBody: RemoteFunction = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("ChangeCharacterBody")
+local wearShirt: RemoteFunction = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("WearShirt")
+local wearPants: RemoteFunction = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("WearPants")
+local changeBodyColor: RemoteEvent = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("ChangeBodyColor")
 
 if shared.connectCharacter then shared.connectCharacter:Disconnect() end
 shared.connectCharacter = LocalPlayer.CharacterAdded:Connect(function(newCharacter)
@@ -161,19 +164,27 @@ end})
 
 TabAvatar:AddButton({"Copiar acessorio", function()
 
-    local tabLocalPlayerAcessories: {number} = brookhavenTool:getIdAccessoriesPlayer(LocalPlayer.Name, "brookhaven")
-    local tabBodyIds: {number} = brookhavenTool:getIdsBodyPlayer(avatarPlayerValue, "roblox")
+  local tabLocalPlayerAcessories: {number} = brookhavenTool:getIdAccessoriesPlayer(LocalPlayer.Name, "brookhaven")
+  local tabTargetPlayerBodyIds: {number} = brookhavenTool:getIdsBodyPlayer(avatarPlayerValue, "brookhaven")
+  local tabTargetPlayerClothesIds: {number} = brookhavenTool:getIdsClothesPlayer(avatarPlayerValue, "brookhaven")
+  local targetPlayerColor: string = brookhavenTool:getColorPlayer(avatarPlayerValue, "brookhaven")
 
-    for _, localPlayerID in pairs(tabLocalPlayerAcessories) do
-        remoteAvatar:InvokeServer(tonumber(localPlayerID))
-    end
+  for _, localPlayerID in pairs(tabLocalPlayerAcessories) do
+    remoteAvatar:InvokeServer(localPlayerID)
+    task.wait(0.2)
+  end
 
-    task.wait(0.5)
+  task.wait(0.5)
 
-    local tabTargetPlayerAcessories: {number} = brookhavenTool:getIdAccessoriesPlayer(avatarPlayerValue, "roblox")
-    for _, targetPlayerID in pairs(tabTargetPlayerAcessories) do
-        remoteAvatar:InvokeServer(tonumber(targetPlayerID))
-    end
+  local tabTargetPlayerAcessories: {number} = brookhavenTool:getIdAccessoriesPlayer(avatarPlayerValue, "brookhaven")
+  for _, targetPlayerID in pairs(tabTargetPlayerAcessories) do
+    remoteAvatar:InvokeServer(targetPlayerID)
+    task.wait(0.2)
+  end
 
-    changeCharacterBody:InvokeServer(tabBodyIds)
+  changeCharacterBody:InvokeServer(tabTargetPlayerBodyIds)
+  wearShirt:InvokeServer(tabTargetPlayerClothesIds[1])
+  wearPants:InvokeServer(tabTargetPlayerClothesIds[2])
+  changeBodyColor:FireServer(targetPlayerColor)
+
 end})
