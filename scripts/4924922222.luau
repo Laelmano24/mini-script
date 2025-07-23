@@ -162,7 +162,7 @@ end})
 TabAvatar:AddButton({"Copiar acessorio", function()
 
     local tabLocalPlayerAcessories: {number} = brookhavenTool:getIdAccessoriesPlayer(LocalPlayer.Name, "brookhaven")
-    local tabBodyIds: {number} = brookhavenTool:getIdsBodyPlayer(avatarPlayerValue, "brookhaven")
+    local tabBodyIds: {number} = brookhavenTool:getIdsBodyPlayer(avatarPlayerValue, "roblox")
 
     for _, localPlayerID in pairs(tabLocalPlayerAcessories) do
         remoteAvatar:InvokeServer(tonumber(localPlayerID))
@@ -170,7 +170,7 @@ TabAvatar:AddButton({"Copiar acessorio", function()
 
     task.wait(0.5)
 
-    local tabTargetPlayerAcessories: {number} = brookhavenTool:getIdAccessoriesPlayer(avatarPlayerValue, "brookhaven")
+    local tabTargetPlayerAcessories: {number} = brookhavenTool:getIdAccessoriesPlayer(avatarPlayerValue, "roblox")
     for _, targetPlayerID in pairs(tabTargetPlayerAcessories) do
         remoteAvatar:InvokeServer(tonumber(targetPlayerID))
     end
