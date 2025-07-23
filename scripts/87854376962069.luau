@@ -21,10 +21,3 @@ TabMain:Button({
         wrong:Destroy()
     end
 })
-
-local sla = workspace.Plots["a200c5d1-d35a-4fe7-9739-b12d50b4bbb2"].Purchases.PlotBlock.Hitbox
-local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
-
-firetouchinterest(rootPart, sla, 0)
-task.wait()
-firetouchinterest(rootPart, sla, 1)

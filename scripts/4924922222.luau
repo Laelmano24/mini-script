@@ -27,6 +27,7 @@ local HumanoidRootPart: BasePart = Character:WaitForChild("HumanoidRootPart")
 
 local vehicles: Folder = workspace:WaitForChild("Vehicles")
 local remoteAvatar: RemoteFunction = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Wear")
+local changeCharacterBody: RemoteFunction = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("ChangeCharacterBody")
 
 if shared.connectCharacter then shared.connectCharacter:Disconnect() end
 shared.connectCharacter = LocalPlayer.CharacterAdded:Connect(function(newCharacter)
@@ -161,6 +162,8 @@ end})
 TabAvatar:AddButton({"Copiar acessorio", function()
 
     local tabLocalPlayerAcessories: {number} = brookhavenTool:getIdAccessoriesPlayer(LocalPlayer.Name, "brookhaven")
+    local tabBodyIds: {number} = brookhavenTool:getIdsBodyPlayer(avatarPlayerValue, "brookhaven")
+
     for _, localPlayerID in pairs(tabLocalPlayerAcessories) do
         remoteAvatar:InvokeServer(tonumber(localPlayerID))
     end
@@ -172,4 +175,5 @@ TabAvatar:AddButton({"Copiar acessorio", function()
         remoteAvatar:InvokeServer(tonumber(targetPlayerID))
     end
 
+    changeCharacterBody:InvokeServer(tabBodyIds)
 end})
